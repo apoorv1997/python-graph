@@ -18,7 +18,7 @@ def miller_rabin_iteration(n, d, r):
             return True
     return False
 
-def test_primality_iterative(index, n, results, global_state, max_iterations=100):
+def test_primality_iterative(index, n, results, global_state, max_iterations=10000):
     # Precompute factors: write n - 1 as 2^r * d with d odd.
     r = 0
     d = n - 1
