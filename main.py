@@ -2,6 +2,8 @@ from pypdf import PdfReader
 from collections import Counter
 from extract import extract_text, remove_header, remove_speaker
 from preproc import remove_stopwords, split_sentences, tokenize
+import networkx as nx
+
 
 def main():
     text = extract_text("text.pdf")
@@ -39,8 +41,25 @@ def main():
     for key, value in edgeWeightDict.items():
         print(f"counter {list(counterList[key].keys())}")
         for idx, words in value:
-            print(f" common words with counter {list(counterList[idx].keys())}: {words}")       
+            print(f" common words with counter {list(counterList[idx].keys())}: {words}")
 
+    find_scc(edgeWeightDict)
+
+
+def find_scc(edgeWeightDict):
+    G = nx.DiGraph()
+    G.add_nodes_from(edgeWeightDict.keys())
+    for source, edges in edgeWeightDict.items():
+        for (target, w) in edges:
+            G.add_edge(source, target, weight=w)
+
+    scc_generator = nx.strongly_connected_components(G)
+    scc_list = list(scc_generator)
+
+    # 6. Print out the SCCs
+    print("\nStrongly Connected Components (NetworkX):")
+    for i, comp in enumerate(scc_list, start=1):
+        print(f"SCC {i}: {comp}")
 
 if __name__ == "__main__":
     # calling the main function
