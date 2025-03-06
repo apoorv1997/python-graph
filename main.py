@@ -115,7 +115,7 @@ def build_scc_dag(G_original, scc_list):
 def export_graph_to_file(G, filename="data.txt"):
     """
     Exports a NetworkX DiGraph (the SCC DAG) into a JSON structure:
-      { "nodes": [...], "links": [...] }
+      { "nodes": [...], "links": [..] }
     Each DAG node has id, size, members. Each link has source, target.
     """
     # Node data
