@@ -1,0 +1,5 @@
+
+Final Results:
+Input 1: Prime
+Input 2: Composite
+Input 3: Composite
