@@ -1,26 +1,3 @@
-'''The task at hand is taking a massiviely large prime number along with 2 other numbers that
-are not prime what i have to do is figure out which of those numbers are not prime while trying to
-figure out if the other numbers are prime
-
-Ok so lets start brain storming ideas, for of we need to make sure it odd so we can check the first bit
-and see if it is zero if the bit is zero that the number is automaticlaly not prime as it means that the
-number can be dividied by 2
-
-
-Honestly first lets set up so that the prgoram takes files and pasres the files taking the binary after the
-0b, then it takes the inputs. It will ask for 1 then 2 then 3. Then it will start the proccess, i will need
-it to be efficent but will also add some sign that the program is working for right now it will
-probaly be a thread of some sort that keep on prinint the time taken or just a print statment so i know
-the program is running to some exent
-'''
-
-# Program to test primality of large binary numbers using the Miller-Rabin test.
-# The program reads three binary numbers (each a string of '0's and '1's), converts them to decimal,
-# and then checks if they are prime or composite.
-#
-# Author: [Your Name]
-# Date: [Today's Date]
-
 import random
 import re
 import threading
@@ -31,12 +8,6 @@ class GlobalState:
         self.lock = threading.Lock()
 
 def miller_rabin_iteration(n, d, r):
-    """
-    Performs one iteration of the Miller-Rabin test for n.
-    Precomputed: n - 1 = 2^r * d (with d odd).
-    Returns True if the iteration passes (i.e. does NOT witness compositeness),
-    or False if a witness for compositeness is found.
-    """
     a = random.randrange(2, n - 1)
     x = pow(a, d, n)
     if x == 1 or x == n - 1:
@@ -48,12 +19,6 @@ def miller_rabin_iteration(n, d, r):
     return False
 
 def test_primality_iterative(index, n, results, global_state, max_iterations=100):
-    """
-    Tests number n for primality using up to max_iterations of the Miller-Rabin test.
-    If at any point two composites are already found (global_state.composite_count >= 2),
-    the thread stops early and declares its number prime.
-    Once a witness to compositeness is found, the thread stops and sets its result to "Composite".
-    """
     # Precompute factors: write n - 1 as 2^r * d with d odd.
     r = 0
     d = n - 1
@@ -82,21 +47,13 @@ def test_primality_iterative(index, n, results, global_state, max_iterations=100
     print(f"Thread for input {index + 1} completed {max_iterations} iterations (assumed Prime).")
 
 def parse_binary_from_file(filename):
-    """
-    Opens the file, reads its content, and extracts the binary number (digits after '0b').
-    Returns the binary string or None if not found.
-    """
-    try:
-        with open(filename, 'r') as f:
-            content = f.read()
-        match = re.search(r'0b([01]+)', content)
-        if match:
-            return match.group(1)
-        else:
-            print(f"No binary pattern found in file {filename}.")
-            return None
-    except Exception as e:
-        print(f"Error reading file {filename}: {e}")
+    with open(filename, 'r') as f:
+        content = f.read()
+    match = re.search(r'0b([01]+)', content)
+    if match:
+        return match.group(1)
+    else:
+        print(f"No binary pattern found in file {filename}.")
         return None
 
 def main():
