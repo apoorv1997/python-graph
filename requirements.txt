@@ -1,0 +1,16 @@
+cachetools
+cachetools
+Flask
+Flask
+Flask_Compress
+Flask_Cors
+loguru
+pandas
+paramiko
+pymongo
+pymongo
+pymongo.egg
+PyMySQL
+python-dotenv
+tqdm
+tqdm
