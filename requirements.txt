@@ -4,7 +4,7 @@ Flask
 Flask
 Flask_Compress
 Flask_Cors
-loguru~=0.7.3
+loguru~=0.7.2
 pandas
 paramiko
 pymongo
@@ -15,4 +15,5 @@ python-dotenv
 tqdm
 tqdm
 networkx~=3.4.2
-pypdf~=5.3.1
+pypdf~=4.2.0
+spacy~=3.8.2
