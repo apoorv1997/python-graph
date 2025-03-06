@@ -22,12 +22,14 @@ def main():
     for tokenList in mainTokenList:
         counter = Counter(tokenList)
         counterList.append(counter)
-    print(counterList)
 
+    # for i in range(len(counterList)):
+    #     print(f"Counter {i}: {list(counterList[i].keys())}")
+    
     edgeWeightDict = {}
 
     for i in range(len(counterList)):
-        edgeWeightDict[counterList[i].keys()] = []
+        edgeWeightDict[i] = []
         for j in range(len(counterList)):
             if i != j:
                 commonwords = set(counterList[i].keys()) & set(counterList[j].keys())
@@ -35,7 +37,9 @@ def main():
                     edgeWeightDict[i].append((j, len(commonwords)))
 
     for key, value in edgeWeightDict.items():
-        print(f"{key}: {value}")        
+        print(f"counter {list(counterList[key].keys())}")
+        for idx, words in value:
+            print(f" common words with counter {list(counterList[idx].keys())}: {words}")       
 
 
 if __name__ == "__main__":
