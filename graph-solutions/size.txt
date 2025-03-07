@@ -1,0 +1,5 @@
+Number of vertices: 322
+Number of edges: 1312
+Total Strongly Connected Components: 206
+Total Connected Components: 4
+Total number of Biconnected Components: 59

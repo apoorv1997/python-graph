@@ -14,3 +14,5 @@ PyMySQL
 python-dotenv
 tqdm
 tqdm
+pyvis
+scipy
