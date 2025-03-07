@@ -227,29 +227,28 @@ def main():
         f.write(f"Total Strongly Connected Components: {len(scc_list)}\n")
         f.write(f"Total Connected Components: {total_connected_components}\n")
         f.write(f"Total number of Biconnected Components: {len(bcc_list)}\n")
+    
     # G = nx.Graph()
-
-    # Add edges to the graph
     # for node, edges in counterWordAdjacencyList.items():
     #     for neighbor, weight in edges:
     #         G.add_edge(node, neighbor, weight=weight)
+    # plt.figure(figsize=(30, 30))
+    # pos = nx.fruchterman_reingold_layout(G)  # Alternative: nx.fruchterman_reingold_layout(G)
+    # edge_labels = {(u, v): d["weight"] for u, v, d in G.edges(data=True)}
+    # nx.draw(G, pos, with_labels=True, node_color="lightblue", edge_color="gray", node_size=100, font_size=12, font_weight="bold")
+    # nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=10)
+    # plt.title("Optimized Graph Visualization (500 Nodes)")
+    # plt.show()
+    # net = Network(notebook=True, width="1000px", height="800px", bgcolor="#222222", font_color="white")
+    # for node in G.nodes():
+    #     net.add_node(node, label=str(node), color="blue") 
+
+    # for u, v, d in G.edges(data=True):
+    #     net.add_edge(u, v, value=d['weight'])
+    # #     print(f"Counter {edgeWeightDict[node]} -> {len(edges)}")
+    # net.show("example.html")
 
 
-    plt.figure(figsize=(30, 30))
-    pos = nx.fruchterman_reingold_layout(G)  # Alternative: nx.fruchterman_reingold_layout(G)
-    edge_labels = {(u, v): d["weight"] for u, v, d in G.edges(data=True)}
-    nx.draw(G, pos, with_labels=True, node_color="lightblue", edge_color="gray", node_size=100, font_size=12, font_weight="bold")
-    nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels, font_size=10)
-    plt.title("Optimized Graph Visualization (500 Nodes)")
-    plt.show()
-    net = Network(notebook=True, width="1000px", height="800px", bgcolor="#222222", font_color="white")
-    for node in G.nodes():
-        net.add_node(node, label=str(node), color="blue") 
-
-    for u, v, d in G.edges(data=True):
-        net.add_edge(u, v, value=d['weight'])
-    #     print(f"Counter {edgeWeightDict[node]} -> {len(edges)}")
-    net.show("example.html")
 if __name__ == "__main__":
     # calling the main function
     main()
