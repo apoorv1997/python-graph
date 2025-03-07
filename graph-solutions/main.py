@@ -19,15 +19,29 @@ def create_undirected_list(edgeWeightDict):
 def plot_undirected_distribution(graph):
     G = nx.Graph(graph)
 
-    degrees = [degree for degree in G.degree()]
-    plt.figure(figsize=(10, 10))
-    plt.hist(degrees, bins=range(min(degrees), max(degrees) + 1), alpha=0.75, edgecolor='black')
-    plt.title('Un-directed Degree Distribution of the Graph')
+    degrees = [len(neighbors) for neighbors in graph.values()]
+
+    degree_count = {}
+    for degree in degrees:
+        if degree in degree_count:
+            degree_count[degree] += 1
+        else:
+            degree_count[degree] = 1
+
+    plt.bar(degree_count.keys(), degree_count.values(), width=0.8, color='skyblue')
     plt.xlabel('Degree')
     plt.ylabel('Frequency')
-    plt.grid(True)
-    plt.savefig('degree-dist.png')
-    plt.show(block=False)
+    plt.title('Degree Distribution of the Undirected Graph')
+    plt.show()
+    # degrees = [degree for degree in G.degree()]
+    # plt.figure(figsize=(10, 10))
+    # plt.hist(degrees, bins=range(1, 40), alpha=1, edgecolor='black')
+    # plt.title('Un-directed Degree Distribution of the Graph')
+    # plt.xlabel('Degree')
+    # plt.ylabel('Frequency')
+    # plt.grid(True)
+    # plt.savefig('degree-dist.png')
+    # plt.show(block=False)
 
 
 def create_adjacency_list(counterList, wordToCounterList):
