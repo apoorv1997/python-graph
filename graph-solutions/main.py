@@ -19,9 +19,7 @@ def create_undirected_list(edgeWeightDict):
 def plot_undirected_distribution(graph):
     G = nx.Graph(graph)
 
-    degrees = [degree for node, degree in G.degree()]
-
-    # Plot the degree distribution
+    degrees = [degree for degree in G.degree()]
     plt.figure(figsize=(10, 10))
     plt.hist(degrees, bins=range(min(degrees), max(degrees) + 1), alpha=0.75, edgecolor='black')
     plt.title('Un-directed Degree Distribution of the Graph')
@@ -52,13 +50,13 @@ def plot_indegree_outdegree_distribution(edgeWeightDict):
     out_degree = defaultdict(int)
 
     for node, neighbours in edgeWeightDict.items():
-        out_degree[node] = sum(neighbours.values())
+        out_degree[node] = sum(neighbours.values()) # outdegree is sum of all weights of each neighbour value inside the neigbours list
         for neighbour, weight in neighbours.items():
-            in_degree[neighbour] += weight
+            in_degree[neighbour] += weight # indegree is sum of all weights of each neighbour 
 
     nodes_with_no_degree = set(in_degree.keys()).union(set(out_degree.keys()))
 
-    for node in nodes_with_no_degree:
+    for node in nodes_with_no_degree: # checking if any of nodes have no degree(could be the case if some nodes are not connected to whole graph)
         in_degree.setdefault(node, 0)
         out_degree.setdefault(node, 0)
 
@@ -68,7 +66,6 @@ def plot_indegree_outdegree_distribution(edgeWeightDict):
     plt.ylabel("Frequency")
     plt.title("Weighted In-Degree Distribution")
 
-    # Weighted Out-Degree Distribution
     plt.subplot(1, 2, 2)
     plt.hist(out_degree.values(), bins=30, color='red', alpha=0.4)
     plt.xlabel("Weighted Out-Degree")
@@ -83,7 +80,7 @@ def plot_indegree_outdegree_distribution(edgeWeightDict):
 def plot_bcc_forest(graph, bcc_list):
     G = nx.Graph(graph)
     plt.figure(figsize=(12, 12))
-    bcc_colors = plt.cm.rainbow(range(len(bcc_list))) 
+    bcc_colors = plt.cm.rainbow(range(len(bcc_list)))  # using matplotlib to assign different colors for each of the BCCs.
 
     for i, bcc in enumerate(bcc_list):
         subgraph = G.subgraph(bcc)
@@ -135,13 +132,15 @@ def find_bcc(graph):
     return bccs
 
 
-def find_connected_components(undirected_graph):
+def find_connected_components(graph):
+    """logic is to run dfs from one vertex and see how many vertices can be visited, 
+    so we keep pushing them in set and keep track of visited nodes. Once all are visited we increase count for connected nodes."""
     visited = set()
     connected_components = 0
     
-    for node in undirected_graph:
+    for node in graph:
         if node not in visited:
-            dfs(node, undirected_graph, visited)
+            dfs(node, graph, visited)
             connected_components += 1
     
     return connected_components
@@ -161,7 +160,7 @@ def plot_scc_degree_distribution(scc_dict, edgeWeightDict):
             for neighbor in edgeWeightDict.get(node, {}):
                 if neighbor in scc: 
                     edge_count += 1
-        scc_edge_counts.append(edge_count)
+        scc_edge_counts.append(edge_count) # for each scc, we iterate over the nodes connected and count how many edges are there coming to it.
 
     plt.figure(figsize=(12, 5))
     plt.subplot(1, 2, 1)
@@ -187,6 +186,7 @@ def main():
     
     wordToCounterList = defaultdict(set) # hashset to add counter for O(1) retrieval
 
+    # creating a dictionary of words to counter list, which will help in O(1) retrieval of counter and we dont have to iterate over again.
     for i, counter in enumerate(counterList):
         for word in counter:
             wordToCounterList[word].add(i)

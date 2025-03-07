@@ -47,16 +47,16 @@ def find_scc(graph):
 def find_dag(graph, scc_list):
     """function to create DAG for SCC list."""
     dag = nx.DiGraph()
-    node_to_scc = {}
+    scc_nodes = {}
     for i, scc in enumerate(scc_list):
         for node in scc:
-            node_to_scc[node] = i
+            scc_nodes[node] = i # adding index to each of scc nodes
     
     for u in graph:
         for v in graph[u]:
-            scc_u = node_to_scc[u]
-            scc_v = node_to_scc[v]
-            if scc_u != scc_v:
-                dag.add_edge(scc_u, scc_v)
+            scc_source = scc_nodes[u] # mapping scc source to scc index
+            scc_child = scc_nodes[v] # mapping scc child to scc index
+            if scc_source != scc_child: # checking if two nodes are not same
+                dag.add_edge(scc_source, scc_child)
     
     return dag
